@@ -165,6 +165,8 @@ public class Login extends javax.swing.JFrame {
                 if(result.next())
                 {
                     JOptionPane.showMessageDialog(null,"Hello "+ jTextField1.getText(),"Successful Login",JOptionPane.PLAIN_MESSAGE);
+                    new Category().setVisible(true);
+                    dispose();
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Invalid Username or Password","Unsuccessful Login",JOptionPane.ERROR_MESSAGE);

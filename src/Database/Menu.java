@@ -48,6 +48,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         ProductsBtn.setText("Products");
+        ProductsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductsBtnActionPerformed(evt);
+            }
+        });
 
         CustomersBtn.setText("Customers");
 
@@ -109,6 +114,11 @@ public class Menu extends javax.swing.JFrame {
         new Category().setVisible(rootPaneCheckingEnabled);
         dispose();
     }//GEN-LAST:event_CategoryBtnActionPerformed
+
+    private void ProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductsBtnActionPerformed
+               new Product().setVisible(rootPaneCheckingEnabled); 
+               dispose();
+    }//GEN-LAST:event_ProductsBtnActionPerformed
 
     /**
      * @param args the command line arguments

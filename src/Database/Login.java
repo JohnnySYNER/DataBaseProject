@@ -47,8 +47,6 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Password");
         jLabel3.setToolTipText("");
 
-        jPasswordField1.setText("jPasswordField1");
-
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel1.setText("Login");
 
@@ -69,7 +67,11 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Username");
 
-        jTextField1.setText("Username");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Clear");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +191,10 @@ public class Login extends javax.swing.JFrame {
         jTextField1.setText("");
         jPasswordField1.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
  
     public static void main(String args[]) {

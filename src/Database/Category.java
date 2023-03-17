@@ -54,11 +54,8 @@ public class Category extends javax.swing.JFrame {
 
         CategoryIdLabel.setText("Id");
 
-        CategoryIdText.setText("CategoryID");
-
         CategoryNameLabel.setText("Name");
 
-        CategoryNameText.setText("CategoryName");
         CategoryNameText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CategoryNameTextActionPerformed(evt);
@@ -73,7 +70,7 @@ public class Category extends javax.swing.JFrame {
 
         InsertDataCat.setBackground(new java.awt.Color(102, 255, 102));
         InsertDataCat.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
-        InsertDataCat.setText("Insert into DataBase");
+        InsertDataCat.setText("Insert Data");
         InsertDataCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InsertDataCatActionPerformed(evt);
@@ -115,7 +112,7 @@ public class Category extends javax.swing.JFrame {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(CategoryNameText, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(CategoryIdText, javax.swing.GroupLayout.Alignment.LEADING)))
+                                        .addComponent(CategoryIdText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(16, 16, 16))
         );
@@ -158,23 +155,28 @@ public class Category extends javax.swing.JFrame {
     }//GEN-LAST:event_CategoryNameTextActionPerformed
 
     private void InsertDataCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertDataCatActionPerformed
-         try {
-         Class.forName("com.mysql.cj.jdbc.Driver");
-         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_managemennt","root","ParolaCiobanu");
+                                                    
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_managemennt","root","ParolaCiobanu");
          
-         String sql = "INSERT INTO Category VALUES(?,?,?)";
-         PreparedStatement prepare = connection.prepareStatement(sql);
-         prepare.setInt(1,Integer.parseInt(CategoryIdText.getText()));
-         prepare.setString(2,CategoryNameText.getText());
-         prepare.setString(3,CategoryDescription.getText());
-         prepare.executeUpdate();
-         JOptionPane.showMessageDialog(null,"Data successfuly inserted");
-         connection.close();
-         }
-         catch(Exception e)
-         {
-                  JOptionPane.showMessageDialog(null,e);
-         }
+        String sql = "INSERT INTO Category VALUES(?,?,?)";
+        PreparedStatement prepare = connection.prepareStatement(sql);
+        prepare.setInt(1,Integer.parseInt(CategoryIdText.getText()));
+        prepare.setString(2,CategoryNameText.getText());
+        prepare.setString(3,CategoryDescription.getText());
+        prepare.executeUpdate();
+        JOptionPane.showMessageDialog(null,"Data successfully inserted");
+        connection.close();
+    } catch(SQLException e) {
+        if (e.getErrorCode() == 1062) {
+            JOptionPane.showMessageDialog(null,"Failed to insert data: Category ID already exists");
+        } else {
+            JOptionPane.showMessageDialog(null,e);
+        }
+    } catch(Exception e) {
+        JOptionPane.showMessageDialog(null,e);
+    }
     }//GEN-LAST:event_InsertDataCatActionPerformed
 
     private void CategoryClearbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoryClearbtnActionPerformed

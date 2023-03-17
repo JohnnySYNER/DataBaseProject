@@ -54,6 +54,7 @@ public class Product extends javax.swing.JFrame {
         InsertDataProdbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 24)); // NOI18N
         jLabel1.setText("Product Information");
@@ -82,7 +83,12 @@ public class Product extends javax.swing.JFrame {
             }
         });
 
-        ProductLastRestockDateText.setText("YYYY-MM-DD");
+        ProductLastRestockDateText.setText("YYYY-MM-DD hh:mm:ss");
+        ProductLastRestockDateText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductLastRestockDateTextActionPerformed(evt);
+            }
+        });
 
         BackToMenuProdbtn.setText("Back to menu");
         BackToMenuProdbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -126,23 +132,24 @@ public class Product extends javax.swing.JFrame {
                             .addComponent(ProductIdText, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel5)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(ProductQInStockText, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ProductPriceText, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6)
                             .addComponent(jLabel8)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(ProductNameText, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(InsertDataProdbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addComponent(clearProdbtn)
-                        .addGap(35, 35, 35)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(ProductPriceText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                                    .addComponent(InsertDataProdbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ProductQInStockText, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(93, 93, 93)
+                                .addComponent(clearProdbtn)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                         .addComponent(BackToMenuProdbtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ProductSupplierIdText, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ProductLastRestockDateText, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ProductLastRestockDateText, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProductSupplierIdText, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -150,9 +157,9 @@ public class Product extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
                         .addGap(41, 41, 41)
                         .addComponent(jLabel2)
                         .addGap(7, 7, 7)
@@ -181,10 +188,10 @@ public class Product extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ProductSupplierIdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(InsertDataProdbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BackToMenuProdbtn)
                             .addComponent(clearProdbtn))))
@@ -217,8 +224,13 @@ new Menu().setVisible(true);
         try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_managemennt","root","ParolaCiobanu");
-         
-        String sql = "INSERT INTO Products VALUES(?,?,?,?,?,?,?)";
+        connection = null;
+       
+        if (ProductIdText.getText().isEmpty() || ProductNameText.getText().isEmpty() || ProductDescText.getText().isEmpty() || ProductPriceText.getText().isEmpty() 
+                 || ProductLastRestockDateText.getText().isEmpty()|| ProductSupplierIdText.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You cannot Insert Null data into the table");
+        } else {
+            String sql = "INSERT INTO Products (Product_Id, Product_Name, Product_Description, Product_Price, Quantity_In_Stock, Last_Restock_Time, Supplier_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement prepare = connection.prepareStatement(sql);
         prepare.setInt(1,Integer.parseInt(ProductIdText.getText()));
         prepare.setString(2,ProductNameText.getText());
@@ -231,17 +243,24 @@ new Menu().setVisible(true);
         prepare.setInt(7,Integer.parseInt(ProductSupplierIdText.getText()));
         prepare.executeUpdate();
         JOptionPane.showMessageDialog(null,"Data successfully inserted");
+         }
         connection.close();
+      
     } catch(SQLException e) {
         if (e.getErrorCode() == 1062) {
             JOptionPane.showMessageDialog(null,"Failed to insert data: Category ID already exists");
         } else {
             JOptionPane.showMessageDialog(null,e);
         }
+            
     } catch(Exception e) {
         JOptionPane.showMessageDialog(null,e);
     }
     }//GEN-LAST:event_InsertDataProdbtnActionPerformed
+
+    private void ProductLastRestockDateTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductLastRestockDateTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductLastRestockDateTextActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

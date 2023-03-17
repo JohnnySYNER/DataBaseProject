@@ -1,5 +1,5 @@
 ========================
-BUILD OUTPUT DESCRIPTION
+BUILD OUTPUT DESCRIPTION aka LibControl
 ========================
 
 When you build an Java application project that has a main class, the IDE

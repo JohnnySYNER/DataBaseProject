@@ -1,6 +1,15 @@
 # DataBaseProject
-For The Coolest Guys In The Hood
-<<--The Start For A Milion Dolla Idea-->>
-
-
-We're going to inovate the whole database system
+Lead Developers-"[Marik],[Johnny],[LingurMate]"
+!![Hood Only]!!
+{
+Restricted:true;
+Whitelisted:true;
+public:false;
+access:false;
+if
+private:minIQ(120)
+{access:true;}
+else 
+{return explode(thisPC);}
+}
+-- Test only, no majore data is available for this test --

@@ -159,7 +159,9 @@ public class Category extends javax.swing.JFrame {
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_managemennt","root","ParolaCiobanu");
-         
+         if (CategoryIdText.getText().isEmpty() || CategoryNameText.getText().isEmpty() || CategoryDescription.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You cannot Insert Null data into the table");
+        } else {
         String sql = "INSERT INTO Category VALUES(?,?,?)";
         PreparedStatement prepare = connection.prepareStatement(sql);
         prepare.setInt(1,Integer.parseInt(CategoryIdText.getText()));
@@ -167,6 +169,7 @@ public class Category extends javax.swing.JFrame {
         prepare.setString(3,CategoryDescription.getText());
         prepare.executeUpdate();
         JOptionPane.showMessageDialog(null,"Data successfully inserted");
+    }
         connection.close();
     } catch(SQLException e) {
         if (e.getErrorCode() == 1062) {

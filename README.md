@@ -18,3 +18,7 @@ else
 Hood Only
 New Database with primitive(swing) UI app.
 >>>>>>> e4903f480278a0433993337ab5fadc35ca7f5384
+
+>description<
+this is a Java project in wich Johny tried to connect a MySQL database resembeling a storage management program to a Java swing App.
+>

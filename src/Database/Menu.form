@@ -107,21 +107,33 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Restock"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RestockBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="SalesBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sales"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SalesBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="SupliersBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Supliers"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SupliersBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="SearchBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Search"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SearchBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -41,7 +41,6 @@
                           </Group>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <Component id="CustomerIdText" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -50,6 +49,7 @@
                               <Component id="CustomerEmailText" alignment="0" pref="230" max="32767" attributes="0"/>
                               <Component id="CustomerAdressText" alignment="0" max="32767" attributes="0"/>
                               <Component id="CustomerNumberText" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                              <Component id="CustomerIdText" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -149,6 +149,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="CustomerEmailText">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CustomerEmailTextActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="InsertDataCustomerbtn">
       <Properties>

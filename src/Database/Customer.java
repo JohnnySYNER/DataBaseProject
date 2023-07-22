@@ -74,6 +74,12 @@ public class Customer extends javax.swing.JFrame {
 
         jLabel6.setText("Email");
 
+        CustomerEmailText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerEmailTextActionPerformed(evt);
+            }
+        });
+
         InsertDataCustomerbtn.setBackground(new java.awt.Color(102, 255, 102));
         InsertDataCustomerbtn.setText("Insert Data");
         InsertDataCustomerbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +123,6 @@ public class Customer extends javax.swing.JFrame {
                                 .addComponent(BackToMenuCustomerbtn))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel5)
-                                .addComponent(CustomerIdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel4)
@@ -125,7 +130,8 @@ public class Customer extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addComponent(CustomerEmailText, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                                 .addComponent(CustomerAdressText)
-                                .addComponent(CustomerNumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(CustomerNumberText, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(CustomerIdText, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,20 +190,27 @@ public class Customer extends javax.swing.JFrame {
         if (CustomerIdText.getText().isEmpty() || CustomerNameText.getText().isEmpty() || CustomerAdressText.getText().isEmpty() || CustomerNumberText.getText().isEmpty() || CustomerEmailText.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "You cannot Insert Null data into the table");
         } else {
-            String sql = "INSERT INTO Products VALUES(?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Customer (Customer_Id, Customer_Name,Customer_Adress,Customer_Number,Customer_Email) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement prepare = connection.prepareStatement(sql);
+            
             prepare.setInt(1,Integer.parseInt(CustomerIdText.getText()));
             prepare.setString(2,CustomerNameText.getText());
             prepare.setString(3,CustomerAdressText.getText());
             prepare.setInt(4, Integer.parseInt(CustomerNumberText.getText()));
-            prepare.setString(3,CustomerEmailText.getText());
+            prepare.setString(5,CustomerEmailText.getText());
             prepare.executeUpdate();
             JOptionPane.showMessageDialog(null,"Data successfully inserted");
         }
         connection.close();
+        CustomerIdText.setText("");
+        CustomerNameText.setText("");
+        CustomerNumberText.setText("");
+        CustomerAdressText.setText("");
+        CustomerEmailText.setText("");
     } catch(SQLException e) {
         if (e.getErrorCode() == 1062) {
             JOptionPane.showMessageDialog(null,"Failed to insert data: Category ID already exists");
+            CustomerIdText.setText("");
         } else {
             JOptionPane.showMessageDialog(null,e);
         }
@@ -220,9 +233,11 @@ public class Customer extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_BackToMenuCustomerbtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void CustomerEmailTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerEmailTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CustomerEmailTextActionPerformed
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

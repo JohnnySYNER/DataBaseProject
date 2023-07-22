@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="DBMySQL">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/DBMySQL.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
 package Database;
+import java.awt.HeadlessException;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -39,6 +41,7 @@ public class Category extends javax.swing.JFrame {
         CategoryDescription = new javax.swing.JTextArea();
         InsertDataCat = new javax.swing.JButton();
         CategoryClearbtn = new javax.swing.JToggleButton();
+        Deletebtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,6 +87,13 @@ public class Category extends javax.swing.JFrame {
             }
         });
 
+        Deletebtn.setText("Delete");
+        Deletebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeletebtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,11 +119,15 @@ public class Category extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(CategoryNameLabel)
                                     .addComponent(CategoryIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(CategoryNameText, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(CategoryIdText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(CategoryNameText, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CategoryIdText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Deletebtn)
+                                .addGap(10, 10, 10)))))
                 .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
@@ -124,7 +138,9 @@ public class Category extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(CategoryIdLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CategoryIdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CategoryIdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Deletebtn))
                 .addGap(24, 24, 24)
                 .addComponent(CategoryNameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -158,26 +174,25 @@ public class Category extends javax.swing.JFrame {
                                                     
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_managemennt","root","ParolaCiobanu");
-         if (CategoryIdText.getText().isEmpty() || CategoryNameText.getText().isEmpty() || CategoryDescription.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "You cannot Insert Null data into the table");
-        } else {
-        String sql = "INSERT INTO Category VALUES(?,?,?)";
-        PreparedStatement prepare = connection.prepareStatement(sql);
-        prepare.setInt(1,Integer.parseInt(CategoryIdText.getText()));
-        prepare.setString(2,CategoryNameText.getText());
-        prepare.setString(3,CategoryDescription.getText());
-        prepare.executeUpdate();
-        JOptionPane.showMessageDialog(null,"Data successfully inserted");
-    }
-        connection.close();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory_managemennt","root","ParolaCiobanu")) {
+            if (CategoryIdText.getText().isEmpty() || CategoryNameText.getText().isEmpty() || CategoryDescription.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "You cannot Insert Null data into the table");
+            } else {
+                String sql = "INSERT INTO Category VALUES(?,?,?)";
+                PreparedStatement prepare = connection.prepareStatement(sql);
+                prepare.setInt(1,Integer.parseInt(CategoryIdText.getText()));
+                prepare.setString(2,CategoryNameText.getText());
+                prepare.setString(3,CategoryDescription.getText());
+                prepare.executeUpdate();
+                JOptionPane.showMessageDialog(null,"Data successfully inserted");
+            }   }
     } catch(SQLException e) {
         if (e.getErrorCode() == 1062) {
             JOptionPane.showMessageDialog(null,"Failed to insert data: Category ID already exists");
         } else {
             JOptionPane.showMessageDialog(null,e);
         }
-    } catch(Exception e) {
+    } catch(HeadlessException | ClassNotFoundException | NumberFormatException e) {
         JOptionPane.showMessageDialog(null,e);
     }
     }//GEN-LAST:event_InsertDataCatActionPerformed
@@ -187,6 +202,11 @@ public class Category extends javax.swing.JFrame {
         CategoryNameText.setText("");
         CategoryDescription.setText("");
     }//GEN-LAST:event_CategoryClearbtnActionPerformed
+
+    private void DeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletebtnActionPerformed
+       new DeleteCategory().setVisible(true);
+       dispose();
+    }//GEN-LAST:event_DeletebtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,10 +236,8 @@ public class Category extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Category().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Category().setVisible(true);
         });
     }
 
@@ -232,6 +250,7 @@ public class Category extends javax.swing.JFrame {
     private javax.swing.JTextField CategoryIdText;
     private javax.swing.JLabel CategoryNameLabel;
     private javax.swing.JTextField CategoryNameText;
+    private javax.swing.JButton Deletebtn;
     private javax.swing.JButton InsertDataCat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

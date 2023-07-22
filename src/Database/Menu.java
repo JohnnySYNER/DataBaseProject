@@ -62,12 +62,32 @@ public class Menu extends javax.swing.JFrame {
         });
 
         RestockBtn.setText("Restock");
+        RestockBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RestockBtnActionPerformed(evt);
+            }
+        });
 
         SalesBtn.setText("Sales");
+        SalesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalesBtnActionPerformed(evt);
+            }
+        });
 
         SupliersBtn.setText("Supliers");
+        SupliersBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SupliersBtnActionPerformed(evt);
+            }
+        });
 
         SearchBtn.setText("Search");
+        SearchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,6 +149,26 @@ public class Menu extends javax.swing.JFrame {
         new Customer().setVisible(rootPaneCheckingEnabled);
         dispose();
     }//GEN-LAST:event_CustomersBtnActionPerformed
+
+    private void RestockBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestockBtnActionPerformed
+        new Restock().setVisible(rootPaneCheckingEnabled);
+        dispose();
+    }//GEN-LAST:event_RestockBtnActionPerformed
+
+    private void SupliersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupliersBtnActionPerformed
+        new Supplier().setVisible(rootPaneCheckingEnabled);
+        dispose();
+    }//GEN-LAST:event_SupliersBtnActionPerformed
+
+    private void SalesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalesBtnActionPerformed
+        new Sales().setVisible(rootPaneCheckingEnabled);
+        dispose();
+    }//GEN-LAST:event_SalesBtnActionPerformed
+
+    private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
+        new Search().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_SearchBtnActionPerformed
 
     /**
      * @param args the command line arguments

@@ -13,7 +13,7 @@ private:minIQ(120)
 else 
 {return explode(thisPC);}
 }
--- Test only, no majore data is available for this test --
+-- Test only, no major data is available for this test --
 =======
 Hood Only
 New Database with primitive(swing) UI app.
